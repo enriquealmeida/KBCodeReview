@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Package xmlns='http://schemas.genexus.com/addin/v1.0'
+         id='0290bda2-2969-47b4-948a-5a0bb880b85f'
+         name='KBCodeRevisor'>
+  <!-- Definicion de comandos -->
+  <Resources>
+    <Resource type="strings" name="GUG.Packages.KBCodeRevisor.StringResources"/>
+  </Resources>
+  <Commands>
+    <CommandDefinition id="ObjectInTextFormat" />
+    <CommandDefinition id="OpenFolderKBCodeRevisor" />
+    <!-- Acerca de -->
+    <CommandDefinition id="AboutKBCodeRevisor"  />
+    <CommandDefinition id="HelpKBCodeRevisor"  />
+  </Commands>
+  <!-- Estructura del menu -->
+  <Menus>
+    <Menu type="menubar">
+      <Popup refid='ToolsMenu' name='Tools' >
+        <Popup name="KBCodeRevisor"   >
+          <Group name ="Object Comparer">
+            <Command refid="ObjectInTextFormat"  />
+            <Command refid="OpenFolderKBCodeRevisor"  />
+          </Group>
+          <Group id="AboutKBCodeRevisor" >
+            <Command refid="AboutKBCodeRevisor"  />
+            <Command refid="HelpKBCodeRevisor" />
+          </Group>
+        </Popup>
+      </Popup>
+    </Menu>
+  </Menus>
+</Package>
