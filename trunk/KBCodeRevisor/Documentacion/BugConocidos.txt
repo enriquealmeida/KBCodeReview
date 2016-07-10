@@ -1,0 +1,10 @@
+﻿* OutOfMemory. 
+En el caso de seleccionar mas de 20.000 objetos, esta dando OutOfMemory. Revisar la implementación del SerializeObject
+Hay un memory leak
+
+* LF y CRLF
+Los objetos estan quedando con LF en vez de un CRLF en algunos archivos de texto. No parece ser un problema, pero seria bueno solucionarlo. 
+
+
+
+

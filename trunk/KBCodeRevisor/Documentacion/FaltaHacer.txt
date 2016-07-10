@@ -1,0 +1,7 @@
+﻿Temas que faltan implementar. 
+
+* Help. Escribir el help en la pagina http://wiki.genexus.com/commwiki/servlet/wiki?31586,KBCodeRevisor+%2F+Help
+* Genearar los objetos por folder por Folder
+* Listar las propiedades de los objetos (falta saber como recorrer las propiedades de los diferentes tipos de objetos)
+* Hacer la incorporacion a GIT o SVN automaticamente. 
+* 
