@@ -3,5 +3,10 @@
 * Help. Escribir el help en la pagina http://wiki.genexus.com/commwiki/servlet/wiki?31586,KBCodeRevisor+%2F+Help
 * Genearar los objetos por folder por Folder
 * Listar las propiedades de los objetos (falta saber como recorrer las propiedades de los diferentes tipos de objetos)
-* Hacer la incorporacion a GIT o SVN automaticamente. 
+* Hacer la incorporacion a GIT o SVN automaticamente, llamando a comandos para hacerlo. 
+* Agregar testeo unitario (nUnit o similar)
+* Conectar el GIT o SVN a Phabricator para probarlo. 
+* Mejorar la estructura y referencias del proyecto para hacerlo mas facil para compilar con diferentes versiones de GX.
+* Arreglar el script que se ejecuta luego del build para que sea relativo.
 * 
+

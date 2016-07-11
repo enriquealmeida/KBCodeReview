@@ -25,12 +25,7 @@ namespace GUG.Packages.KBCodeRevisor
             string title = "KBCodeRevisor - Generate objects in text format";
             output.StartSection(title);
 
-            //string fechahora = String.Format("{0:yyyy-MM-dd-HHmm}", DateTime.Now);
             string newDir = KBCodeRevisorDirectory(kbserv) + @"\";
-            //Directory.CreateDirectory(newDir);
-
-
-
             SelectObjectOptions selectObjectOption = new SelectObjectOptions();
             selectObjectOption.MultipleSelection = true;
 
