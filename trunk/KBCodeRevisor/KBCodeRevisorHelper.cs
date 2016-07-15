@@ -252,7 +252,7 @@ namespace GUG.Packages.KBCodeRevisor
             {
                 Directory.CreateDirectory(dir);
             }
-            catch (Exception e) { }
+            catch (Exception) { }
 
             return dir;
         }
