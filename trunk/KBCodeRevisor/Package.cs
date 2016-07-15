@@ -9,7 +9,7 @@ using Artech.Architecture.UI.Framework.Packages;
 
 namespace GUG.Packages.KBCodeRevisor
 {
-   [Guid("fa2c542d-cd46-4df2-9317-bd5899a536eb")]
+   [Guid("0290bda2-2969-47b4-948a-5a0bb880b85f")]
    public class Package : AbstractPackageUI {
         public static Guid guid = typeof(Package).GUID;
 
