@@ -1,12 +1,26 @@
 ﻿Temas que faltan implementar. 
 
 * Help. Escribir el help en la pagina http://wiki.genexus.com/commwiki/servlet/wiki?31586,KBCodeRevisor+%2F+Help
-* Genearar los objetos por folder por Folder
-* Listar las propiedades de los objetos (falta saber como recorrer las propiedades de los diferentes tipos de objetos)
 * Hacer la incorporacion a GIT o SVN automaticamente, llamando a comandos para hacerlo. 
 * Agregar testeo unitario (nUnit o similar)
 * Conectar el GIT o SVN a Phabricator para probarlo. 
+* Agregar a lo que se publica
+	Navegacion del objeto
+	Indicadores 
+		Bloque maximo de codigo
+		Nivel maximo de anidacion
+		Cantidad de parametros
+		Tiene o no tiene comentarios al principio
+		Variables no usadas
+		Variables autodefinidas
+		Parametros de entrada no usados
+		Parametros de salida no cargados
+		Parametros sin in/out/inout
+		Numero ciclomatico 
+
+
+Ya hecho
+* Genearar los objetos por folder
 * Mejorar la estructura y referencias del proyecto para hacerlo mas facil para compilar con diferentes versiones de GX.
 * Arreglar el script que se ejecuta luego del build para que sea relativo.
-* 
-
+* Publicar Propiedades

@@ -1,5 +1,8 @@
 ﻿Cambios KBCodeRevisor
 
+Enrique 
+Se agrego publicacion de propiedades.
+
 Enrique - Julio/2016  v0.0.2
 Se implementa el generar archivos de texto desde los objetos en un folder con la fecha y la hora. 
 Se implementa opcion para abrir el folder que contiene los objetos. 
