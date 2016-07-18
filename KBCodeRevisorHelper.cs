@@ -2,6 +2,7 @@ using Artech.Architecture.Common;
 using Artech.Architecture.Common.Objects;
 using Artech.Architecture.Common.Services;
 using Artech.Architecture.UI.Framework.Services;
+using Artech.Common.Properties;
 using Artech.Genexus.Common;
 using Artech.Genexus.Common.Objects;
 using Artech.Genexus.Common.Parts;
@@ -92,13 +93,13 @@ namespace GUG.Packages.KBCodeRevisor
 			}
         }
 
-        private static void WriteObjectToTextFile(KBObject obj, string rootFolderPath)
+        public static void WriteObjectToTextFile(KBObject obj, string rootFolderPath)
 		{
 			string objectFolderPath = GetObjectFolderPath(obj, rootFolderPath);
 			if (!Directory.Exists(objectFolderPath))
 				Directory.CreateDirectory(objectFolderPath);
 
-			string name = obj.Name + "." + obj.TypeDescriptor.Name;
+			string name = Functions.ReplaceInvalidCharacterInFileName(obj.Name) + "." + obj.TypeDescriptor.Name;
 				
             string filePath = Path.Combine(objectFolderPath, name);
 			using (StreamWriter file = new StreamWriter(filePath))
@@ -124,11 +125,18 @@ namespace GUG.Packages.KBCodeRevisor
 			RulesPart rp = obj.Parts.Get<RulesPart>();
 			if (rp != null)
 			{
-				file.WriteLine("=== RULES ===");
+				file.WriteLine(Environment.NewLine + "=== RULES ===");
 				file.WriteLine(rp.Source);
 			}
 
-			switch (obj.TypeDescriptor.Name)
+            EventsPart ep = obj.Parts.Get<EventsPart>();
+            if (ep != null)
+            {
+                file.WriteLine(Environment.NewLine + "=== EVENTS SOURCE ===");
+                file.WriteLine(ep.Source);
+            }
+
+            switch (obj.TypeDescriptor.Name)
 			{
 				case "Attribute":
 
@@ -145,7 +153,7 @@ namespace GUG.Packages.KBCodeRevisor
 					ProcedurePart pp = obj.Parts.Get<ProcedurePart>();
 					if (pp != null)
 					{
-						file.WriteLine("=== PROCEDURE SOURCE ===");
+						file.WriteLine(Environment.NewLine + "=== PROCEDURE SOURCE ===");
 						file.WriteLine(pp.Source);
 					}
 					break;
@@ -153,50 +161,16 @@ namespace GUG.Packages.KBCodeRevisor
 					StructurePart sp = obj.Parts.Get<StructurePart>();
 					if (sp != null)
 					{
-						file.WriteLine("=== STRUCTURE ===");
+						file.WriteLine(Environment.NewLine + "=== STRUCTURE ===");
 						file.WriteLine(sp.ToString());
-					}
-
-					EventsPart ep = obj.Parts.Get<EventsPart>();
-					if (ep != null)
-					{
-						file.WriteLine("=== EVENTS SOURCE ===");
-						file.WriteLine(ep.Source);
 					}
 					break;
 
 				case "WorkPanel":
-					WorkPanel wkp = (WorkPanel)obj;
-
-					ep = obj.Parts.Get<EventsPart>();
-					if (ep != null)
-					{
-						file.WriteLine("=== EVENTS SOURCE ===");
-						file.WriteLine(ep.Source);
-					}
 					break;
-
 				case "WebPanel":
-
-					WebPanel wbp = (WebPanel)obj;
-					ep = obj.Parts.Get<EventsPart>();
-					if (ep != null)
-					{
-						file.WriteLine("=== EVENTS SOURCE ===");
-						file.WriteLine(ep.Source);
-					}
 					break;
-
-
 				case "WebComponent":
-
-					wbp = (WebPanel)obj;
-					ep = obj.Parts.Get<EventsPart>();
-					if (ep != null)
-					{
-						file.WriteLine("=== EVENTS SOURCE ===");
-						file.WriteLine(ep.Source);
-					}
 					break;
 
 				case "Table":
@@ -232,7 +206,7 @@ namespace GUG.Packages.KBCodeRevisor
 					SDT sdtToList = (SDT)obj;
 					if (sdtToList != null)
 					{
-						file.WriteLine("=== STRUCTURE ===");
+						file.WriteLine(Environment.NewLine + "=== STRUCTURE ===");
 						ListStructure(sdtToList.SDTStructure.Root, 0, file);
 					}
 					break;
@@ -243,7 +217,14 @@ namespace GUG.Packages.KBCodeRevisor
 					file.Write(SerializeObject(obj).ToString());
 					break;
 			}
-		}
+            
+            file.WriteLine(Environment.NewLine + "====== PROPERTIES =======");
+            foreach (Property prop in obj.Properties)
+            {
+                if (!prop.IsDefault)
+                    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+            }
+        }
 
 		private static string SerializeObject(KBObject obj)
         {
@@ -304,6 +285,12 @@ namespace GUG.Packages.KBCodeRevisor
                 Directory.CreateDirectory(dir);
 
             return dir;
+        }
+
+        public static void ListProperties(KBObject obj)
+        {
+
+                
         }
     }
 }
