@@ -8,6 +8,8 @@
   </Resources>
   <Commands>
     <CommandDefinition id="ObjectInTextFormat" />
+    <CommandDefinition id="PushChanges" />
+    <CommandDefinition id="SendDiff" />
     <CommandDefinition id="OpenFolderKBCodeRevisor" />
     <!-- Acerca de -->
     <CommandDefinition id="AboutKBCodeRevisor"  />
@@ -17,9 +19,11 @@
   <Menus>
     <Menu type="menubar">
       <Popup refid='ToolsMenu' name='Tools' >
-        <Popup name="KBCodeRevisor"   >
+        <Popup name="KBCodeReviewer"   >
           <Group name ="Object Comparer">
             <Command refid="ObjectInTextFormat"  />
+            <Command refid="SendDiff"  />
+            <Command refid="PushChanges"  />            
             <Command refid="OpenFolderKBCodeRevisor"  />
           </Group>
           <Group id="AboutKBCodeRevisor" >

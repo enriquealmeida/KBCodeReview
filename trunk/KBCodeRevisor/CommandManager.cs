@@ -7,13 +7,15 @@ using System.Windows.Forms;
 
 namespace GUG.Packages.KBCodeRevisor
 {
-	class CommandManager : CommandDelegator
+    class CommandManager : CommandDelegator
 	{
 		public CommandManager()
 		{
 			AddCommand(CommandKeys.ObjectInTextFormat, new ExecHandler(ExecObjectInTextFormat), new QueryHandler(EnableWhenKbOpened));
 			AddCommand(CommandKeys.OpenFolderKBCodeRevisor, new ExecHandler(ExecOpenFolderKBCodeRevisor), new QueryHandler(EnableWhenKbOpened));
-			AddCommand(CommandKeys.AboutKBCodeRevisor, new ExecHandler(ExecAboutKBCodeRevisor), new QueryHandler(EnableAlways));
+            AddCommand(CommandKeys.SendDiff, new ExecHandler(ExecSendDiff), new QueryHandler(EnableWhenKbOpened));
+            AddCommand(CommandKeys.PushChanges, new ExecHandler(ExecPushChanges), new QueryHandler(EnableWhenKbOpened));            
+            AddCommand(CommandKeys.AboutKBCodeRevisor, new ExecHandler(ExecAboutKBCodeRevisor), new QueryHandler(EnableAlways));
 			AddCommand(CommandKeys.HelpKBCodeRevisor, new ExecHandler(ExecHelpKBCodeRevisor), new QueryHandler(EnableAlways));
 		}
 
@@ -34,11 +36,27 @@ namespace GUG.Packages.KBCodeRevisor
 			return true;
 		}
 
-		public bool ExecObjectInTextFormat(CommandData cmdData)
-		{
-			KBCodeRevisorHelper.ExportObjectInTextFormat();
-			return true;
+        public bool ExecObjectInTextFormat(CommandData cmdData)
+        {
+            KBCodeRevisorHelper.ExportObjectInTextFormat();
+
+            return true;
 		}
+
+        public bool ExecSendDiff(CommandData cmdData)
+        {
+            KBCodeRevisorHelper.GitInit();
+            KBCodeRevisorHelper.GitCommit();
+            KBCodeRevisorHelper.ArcDiff();
+            
+            return true;
+        }
+
+        public bool ExecPushChanges(CommandData cmdData) {
+
+            KBCodeRevisorHelper.ArcLand();
+            return true;
+        }
 
 		public bool ExecOpenFolderKBCodeRevisor(CommandData cmdData)
 		{
