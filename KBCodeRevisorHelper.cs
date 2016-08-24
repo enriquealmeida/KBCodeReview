@@ -19,8 +19,49 @@ namespace GUG.Packages.KBCodeRevisor
 	static class KBCodeRevisorHelper
     {
 		private static string OutputId = "General";
+        
+        //--------------------------------GIT-----------------------------------------------------------------------------
+        public static void GitInit()
+        {
+            string path = KBCodeRevisorHelper.GetKBCodeRevisorDirectory() + "/.git";
+            if (!Directory.Exists(path))
+            {
 
-		public static bool IsCodeRevisorExportable(IKBObject obj)
+                string result = ExecuteCommand.Execute("git init");
+                GxConsoleHandler.GitConsoleWriter(result, "KBCodeReviewer - Execute Git Init");
+
+            }
+            else
+            {
+                GxConsoleHandler.GitConsoleWriter("Git was already initialized", "KBCodeReviewer - Execute Git Init");
+
+            }
+
+        }
+
+        public static void GitCommit()
+        {
+            string result = ExecuteCommand.Execute("git add .");
+            GxConsoleHandler.GitConsoleWriter(result, "KBCodeReviewer - Execute Git add .");
+            string gitcommit = "git commit -m " + '"' + "default message" + '"';
+            result = ExecuteCommand.Execute(gitcommit);
+            GxConsoleHandler.GitConsoleWriter(result, "KBCodeReviewer - Execute Git commit");
+        }
+
+        public static void ArcDiff()
+        {
+            ExecuteCommand.ExecuteArc("arc diff");
+            GxConsoleHandler.GitConsoleWriter("Executing Arc Diff", "KBCodeReviewer - Execute Arc diff");
+        }
+
+        public static void ArcLand()
+        {
+            ExecuteCommand.ExecuteArc("arc land");
+            GxConsoleHandler.GitConsoleWriter("Executing Arc Land", "KBCodeReviewer - Execute Arc land");
+        }
+        //----------------------------------------------------------------------------------------------------------------
+
+        public static bool IsCodeRevisorExportable(IKBObject obj)
 		{
 			string name = obj.TypeDescriptor.Name;
 			ObjectTypeFlags flags = obj.TypeDescriptor.Flags;
@@ -63,12 +104,14 @@ namespace GUG.Packages.KBCodeRevisor
 			ExportObjectInTextFormat(objects);
 		}
 
+       
+        
 		public static void ExportObjectInTextFormat(IList<KBObject> objects)
 		{ 
 			IOutputService output = CommonServices.Output;
 			output.SelectOutput(OutputId);
 
-			string title = "KBCodeRevisor - Generate objects in text format";
+			string title = "KBCodeReviewer - Generate objects in text format";
 			output.StartSection(title);
 
             bool success = true;
@@ -99,8 +142,9 @@ namespace GUG.Packages.KBCodeRevisor
 			if (!Directory.Exists(objectFolderPath))
 				Directory.CreateDirectory(objectFolderPath);
 
-			string name = Functions.ReplaceInvalidCharacterInFileName(obj.Name) + "." + obj.TypeDescriptor.Name;
-				
+		//	string name = Functions.ReplaceInvalidCharacterInFileName(obj.Name) + "." + obj.TypeDescriptor.Name;
+            string name = Functions.ReplaceInvalidCharacterInFileName(obj.Name) + ".txt";
+
             string filePath = Path.Combine(objectFolderPath, name);
 			using (StreamWriter file = new StreamWriter(filePath))
 			{
@@ -222,8 +266,45 @@ namespace GUG.Packages.KBCodeRevisor
             foreach (Property prop in obj.Properties)
             {
                 if (!prop.IsDefault)
+                {
                     file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+                }
+                else
+                {
+                    if ((prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
+                    {
+                        file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+                    }
+                }
             }
+
+            //CATEGORIES
+            IEnumerable<Artech.Udm.Framework.References.EntityReference> refe = obj.GetReferences();
+
+            string GUIDCatString = "00000000-0000-0000-0000-000000000006";
+            List<string> categories = new List<string>();
+
+            foreach (Artech.Udm.Framework.References.EntityReference reference in refe)
+            {
+                Guid GUIDRefTo = reference.To.Type;
+                string GUIDRefToString = GUIDRefTo.ToString();               
+                    
+                if (GUIDRefToString == GUIDCatString) {
+                    KBCategory cat = KBCategory.Get(UIServices.KB.CurrentModel,reference.To.Id);
+                    categories.Add(cat.Name);
+                }
+            }
+
+            if (categories.Count > 0)
+            {
+                file.WriteLine(Environment.NewLine + "====== CATEGORIES =======");
+                foreach (string name in categories)
+                {
+                    file.WriteLine(name);
+                }
+            }
+
+
         }
 
 		private static string SerializeObject(KBObject obj)

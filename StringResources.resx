@@ -129,4 +129,10 @@
   <data name="OpenFolderKBCodeRevisor" xml:space="preserve">
     <value>Open folder KBCodeRevisor</value>
   </data>
+  <data name="PushChanges" xml:space="preserve">
+    <value>Push Changes</value>
+  </data>
+  <data name="SendDiff" xml:space="preserve">
+    <value>Send Diff</value>
+  </data>
 </root>

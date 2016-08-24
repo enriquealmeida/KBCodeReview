@@ -95,5 +95,23 @@ namespace GUG.Packages.KBCodeRevisor {
                 return ResourceManager.GetString("OpenFolderKBCodeRevisor", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Push Changes.
+        /// </summary>
+        internal static string PushChanges {
+            get {
+                return ResourceManager.GetString("PushChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Diff.
+        /// </summary>
+        internal static string SendDiff {
+            get {
+                return ResourceManager.GetString("SendDiff", resourceCulture);
+            }
+        }
     }
 }
