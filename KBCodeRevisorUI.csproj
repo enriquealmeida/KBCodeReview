@@ -181,9 +181,11 @@
     <Compile Include="AboutKBCodeRevisor.Designer.cs">
       <DependentUpon>AboutKBCodeRevisor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExecuteCommand.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="CommandKeys.cs" />
     <Compile Include="CommandManager.cs" />
+    <Compile Include="GxConsoleHandler.cs" />
     <Compile Include="KBCodeRevisorHelper.cs">
       <SubType>Code</SubType>
     </Compile>
