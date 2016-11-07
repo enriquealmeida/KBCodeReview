@@ -1,5 +1,12 @@
 ﻿Cambios KBCodeRevisor
 
+Enrique - Noviembre/ 2016 - v0.0.5
+Previo a Hackaton. 
+
+Rodrigo
+Llamadas a GIT y conexion Phabricator. 
+
+
 Enrique 
 Se agrego publicacion de propiedades.
 
