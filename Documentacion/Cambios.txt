@@ -1,4 +1,4 @@
-﻿Cambios KBCodeRevisor
+﻿Cambios KBCodeReview
 
 Enrique - Noviembre/ 2016 - v0.0.5
 Previo a Hackaton. 

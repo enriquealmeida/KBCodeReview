@@ -6,7 +6,7 @@ using Artech.Genexus.Common;
 using System.IO;
 using System.Linq;
 
-namespace GUG.Packages.KBCodeRevisor
+namespace GUG.Packages.KBCodeReview
 {
     class Functions
     {

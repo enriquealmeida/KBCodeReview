@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Package xmlns='http://schemas.genexus.com/addin/v1.0'
+         id='0290bda2-2969-47b4-948a-5a0bb880b85f'
+         name='KBCodeReview'>
+  <!-- Definicion de comandos -->
+  <Resources>
+    <Resource type="strings" name="GUG.Packages.KBCodeReview.StringResources"/>
+  </Resources>
+  <Commands>
+    <CommandDefinition id="ObjectInTextFormat" />
+    <CommandDefinition id="PushChanges" />
+    <CommandDefinition id="SendDiff" />
+    <CommandDefinition id="OpenFolderKBCodeReview" />
+    <!-- Acerca de -->
+    <CommandDefinition id="AboutKBCodeReview"  />
+    <CommandDefinition id="HelpKBCodeReview"  />
+  </Commands>
+  <!-- Estructura del menu -->
+  <Menus>
+    <Menu type="menubar">
+      <Popup refid='ToolsMenu' name='Tools' >
+        <Popup name="KBCodeReviewer"   >
+          <Group name ="Object Comparer">
+            <Command refid="ObjectInTextFormat"  />
+            <Command refid="SendDiff"  />
+            <Command refid="PushChanges"  />            
+            <Command refid="OpenFolderKBCodeReview"  />
+          </Group>
+          <Group id="AboutKBCodeReview" >
+            <Command refid="AboutKBCodeReview"  />
+            <Command refid="HelpKBCodeReview" />
+          </Group>
+        </Popup>
+      </Popup>
+    </Menu>
+  </Menus>
+</Package>

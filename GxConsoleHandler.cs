@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using Artech.Architecture.Common.Services;
 
-namespace GUG.Packages.KBCodeRevisor
+namespace GUG.Packages.KBCodeReview
 {
     static class GxConsoleHandler
     {

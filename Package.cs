@@ -4,7 +4,7 @@ using Artech.Architecture.Common.Services;
 using Artech.Architecture.UI.Framework.Packages;
 using Artech.Common.Properties;
 
-namespace GUG.Packages.KBCodeRevisor
+namespace GUG.Packages.KBCodeReview
 {
     [Guid("0290bda2-2969-47b4-948a-5a0bb880b85f")]
 
@@ -15,7 +15,7 @@ namespace GUG.Packages.KBCodeRevisor
 
       public override string Name
       {
-         get { return "KBCodeRevisor"; }
+         get { return "KBCodeReview"; }
       }
 
       public override void Initialize(IGxServiceProvider services)

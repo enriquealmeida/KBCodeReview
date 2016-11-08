@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Projects>
-   <Project Name="KBCodeRevisor" Location=".">
+   <Project Name="KBCodeReview" Location=".">
 
       <!--
       The Package assembly needs to be copied to the Packages
       folder below the base execution path.
       -->
-      <File Name="KBCodeRevisor.dll" Target="Packages" />
+      <File Name="KBCodeReview.dll" Target="Packages" />
 
       <!--
       Any other dependency (i.e.: other assemblies on which

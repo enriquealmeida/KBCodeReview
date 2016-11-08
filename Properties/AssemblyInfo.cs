@@ -7,18 +7,18 @@ using Artech.Architecture.Common.Packages;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KBCodeRevisor")]
+[assembly: AssemblyTitle("KBCodeReview")]
 [assembly: AssemblyDescription("Review and control quality of GeneXus Code")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("GUGMontevideo")]
-[assembly: AssemblyProduct("KBCodeRevisor")]
+[assembly: AssemblyProduct("KBCodeReview")]
 [assembly: AssemblyCopyright("Copyright 2007-2016")]
 [assembly: AssemblyTrademark("GUGMontevideo")]
 [assembly: AssemblyCulture("")]
 
 // The following attributes are declarations related to this assembly
 // as a GeneXus Package
-  [assembly: PackageAttribute(typeof(GUG.Packages.KBCodeRevisor.Package), IsCore = false, IsUIPackage = true )] 
+  [assembly: PackageAttribute(typeof(GUG.Packages.KBCodeReview.Package), IsCore = false, IsUIPackage = true )] 
 
 //[assembly: PackageAttribute(typeof(Artech.Packages.TeamDevClient.Package), IsCore = false, IsUIPackage = false)]
 // Setting ComVisible to false makes the types in this assembly not visible 

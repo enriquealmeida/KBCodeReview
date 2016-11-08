@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GUG.Packages.KBCodeRevisor
+namespace GUG.Packages.KBCodeReview
 {
     static class ExecuteCommand
     {
@@ -12,7 +12,7 @@ namespace GUG.Packages.KBCodeRevisor
             //Init Cmd.exe
             System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/c " + _Command);
             //Redirect output into a stream
-            string KBCodeReviwerDirectory = KBCodeRevisorHelper.GetKBCodeRevisorDirectory();
+            string KBCodeReviwerDirectory = KBCodeReviewHelper.GetKBCodeReviewDirectory();
             procStartInfo.WorkingDirectory = KBCodeReviwerDirectory;
             procStartInfo.RedirectStandardOutput = true;
             procStartInfo.UseShellExecute = false;
@@ -35,7 +35,7 @@ namespace GUG.Packages.KBCodeRevisor
             //Init Cmd.exe
             System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/k " + _Command);
             //Redirect output into a stream
-            string KBCodeReviwerDirectory = KBCodeRevisorHelper.GetKBCodeRevisorDirectory();
+            string KBCodeReviwerDirectory = KBCodeReviewHelper.GetKBCodeReviewDirectory();
             procStartInfo.WorkingDirectory = KBCodeReviwerDirectory;
             procStartInfo.RedirectStandardInput = false;
             procStartInfo.RedirectStandardOutput = false;

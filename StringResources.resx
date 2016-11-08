@@ -117,17 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutKBCodeRevisor" xml:space="preserve">
-    <value>About KBCodeRevisor</value>
+  <data name="AboutKBCodeReview" xml:space="preserve">
+    <value>About KBCodeReview</value>
   </data>
-  <data name="HelpKBCodeRevisor" xml:space="preserve">
-    <value>Help KBCodeRevisor</value>
+  <data name="HelpKBCodeReview" xml:space="preserve">
+    <value>Help KBCodeReview</value>
   </data>
   <data name="ObjectInTextFormat" xml:space="preserve">
     <value>Export objects in text format</value>
   </data>
-  <data name="OpenFolderKBCodeRevisor" xml:space="preserve">
-    <value>Open folder KBCodeRevisor</value>
+  <data name="OpenFolderKBCodeReview" xml:space="preserve">
+    <value>Open folder KBCodeReview</value>
   </data>
   <data name="PushChanges" xml:space="preserve">
     <value>Push Changes</value>

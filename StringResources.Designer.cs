@@ -61,20 +61,20 @@ namespace GUG.Packages.KBCodeRevisor {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About KBCodeRevisor.
+        ///   Looks up a localized string similar to About KBCodeReview.
         /// </summary>
-        internal static string AboutKBCodeRevisor {
+        internal static string AboutKBCodeReview {
             get {
-                return ResourceManager.GetString("AboutKBCodeRevisor", resourceCulture);
+                return ResourceManager.GetString("AboutKBCodeReview", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Help KBCodeRevisor.
+        ///   Looks up a localized string similar to Help KBCodeReview.
         /// </summary>
-        internal static string HelpKBCodeRevisor {
+        internal static string HelpKBCodeReview {
             get {
-                return ResourceManager.GetString("HelpKBCodeRevisor", resourceCulture);
+                return ResourceManager.GetString("HelpKBCodeReview", resourceCulture);
             }
         }
         
@@ -88,11 +88,11 @@ namespace GUG.Packages.KBCodeRevisor {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open folder KBCodeRevisor.
+        ///   Looks up a localized string similar to Open folder KBCodeReview.
         /// </summary>
-        internal static string OpenFolderKBCodeRevisor {
+        internal static string OpenFolderKBCodeReview {
             get {
-                return ResourceManager.GetString("OpenFolderKBCodeRevisor", resourceCulture);
+                return ResourceManager.GetString("OpenFolderKBCodeReview", resourceCulture);
             }
         }
         
