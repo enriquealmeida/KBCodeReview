@@ -142,7 +142,6 @@ namespace GUG.Packages.KBCodeReview
 			if (!Directory.Exists(objectFolderPath))
 				Directory.CreateDirectory(objectFolderPath);
 
-		//	string name = Functions.ReplaceInvalidCharacterInFileName(obj.Name) + "." + obj.TypeDescriptor.Name;
             string name = Functions.ReplaceInvalidCharacterInFileName(obj.Name) + ".txt";
 
             string filePath = Path.Combine(objectFolderPath, name);
@@ -165,103 +164,100 @@ namespace GUG.Packages.KBCodeReview
 		}
 
 		private static void WriteObjectContent(KBObject obj, StreamWriter file)
-		{
-			RulesPart rp = obj.Parts.Get<RulesPart>();
-			if (rp != null)
-			{
-				file.WriteLine(Environment.NewLine + "=== RULES ===");
-				file.WriteLine(rp.Source);
-			}
+        {
+            ListRulePart(obj, file);
+            ListEvents(obj, file);
 
+            switch (obj.TypeDescriptor.Name)
+            {
+                case "Attribute":
+                    ListAttribute(obj, file);
+                    break;
+                case "Procedure":
+                    ListProcedureSource(obj, file);
+                    break;
+                case "Transaction":
+                    ListTransactionStructure(obj, file);
+                    break;
+                case "WorkPanel":
+                    break;
+                case "WebPanel":
+                    break;
+                case "WebComponent":
+                    break;
+                case "Table":
+                    Table tbl = (Table)obj;
+                    ListTableStructure(tbl, file);
+                    break;
+                case "SDT":
+                    SDT sdtToList = (SDT)obj;
+                    ListSDTStructure(sdtToList, file);
+                    break;
+                default:
+                    //Unknown object. Use export format.
+                    file.Write(SerializeObject(obj).ToString());
+                    break;
+            }
+
+            ListProperties(obj, file);
+            ListCategories(obj, file);
+
+
+        }
+
+        private static void ListRulePart(KBObject obj, StreamWriter file)
+        {
+            RulesPart rp = obj.Parts.Get<RulesPart>();
+            if (rp != null)
+            {
+                file.WriteLine(Environment.NewLine + "=== RULES ===");
+                file.WriteLine(rp.Source);
+            }
+        }
+
+        private static void ListAttribute(KBObject obj, StreamWriter file)
+        {
+            Artech.Genexus.Common.Objects.Attribute att = (Artech.Genexus.Common.Objects.Attribute)obj;
+
+            file.WriteLine(Functions.ReturnPicture(att));
+            if (att.Formula == null)
+                file.WriteLine("");
+            else
+                file.WriteLine(att.Formula.ToString());
+        }
+
+        private static void ListProcedureSource(KBObject obj, StreamWriter file)
+        {
+            ProcedurePart pp = obj.Parts.Get<ProcedurePart>();
+            if (pp != null)
+            {
+                file.WriteLine(Environment.NewLine + "=== PROCEDURE SOURCE ===");
+                file.WriteLine(pp.Source);
+            }
+        }
+
+        private static void ListTransactionStructure(KBObject obj, StreamWriter file)
+        {
+            StructurePart sp = obj.Parts.Get<StructurePart>();
+            if (sp != null)
+            {
+                file.WriteLine(Environment.NewLine + "=== STRUCTURE ===");
+                file.WriteLine(sp.ToString());
+            }
+        }
+
+        private static void ListEvents(KBObject obj, StreamWriter file)
+        {
             EventsPart ep = obj.Parts.Get<EventsPart>();
             if (ep != null)
             {
                 file.WriteLine(Environment.NewLine + "=== EVENTS SOURCE ===");
                 file.WriteLine(ep.Source);
             }
+        }
 
-            switch (obj.TypeDescriptor.Name)
-			{
-				case "Attribute":
-
-					Artech.Genexus.Common.Objects.Attribute att = (Artech.Genexus.Common.Objects.Attribute)obj;
-
-					file.WriteLine(Functions.ReturnPicture(att));
-					if (att.Formula == null)
-						file.WriteLine("");
-					else
-						file.WriteLine(att.Formula.ToString());
-					break;
-
-				case "Procedure":
-					ProcedurePart pp = obj.Parts.Get<ProcedurePart>();
-					if (pp != null)
-					{
-						file.WriteLine(Environment.NewLine + "=== PROCEDURE SOURCE ===");
-						file.WriteLine(pp.Source);
-					}
-					break;
-				case "Transaction":
-					StructurePart sp = obj.Parts.Get<StructurePart>();
-					if (sp != null)
-					{
-						file.WriteLine(Environment.NewLine + "=== STRUCTURE ===");
-						file.WriteLine(sp.ToString());
-					}
-					break;
-
-				case "WorkPanel":
-					break;
-				case "WebPanel":
-					break;
-				case "WebComponent":
-					break;
-
-				case "Table":
-					Table tbl = (Table)obj;
-
-					foreach (TableAttribute attr in tbl.TableStructure.Attributes)
-					{
-						String line = "";
-						if (attr.IsKey)
-						{
-							line = "*";
-						}
-						else
-						{
-							line = " ";
-						}
-
-						line += attr.Name + "  " + attr.GetPropertiesObject().GetPropertyValueString("DataTypeString") + "-" + attr.GetPropertiesObject().GetPropertyValueString("Formula");
-
-						if (attr.IsExternalRedundant)
-							line += " External_Redundant";
-
-						line += " Null=" + attr.IsNullable;
-						if (attr.IsRedundant)
-							line += " Redundant";
-
-						file.WriteLine(line);
-					}
-					break;
-
-
-				case "SDT":
-					SDT sdtToList = (SDT)obj;
-					if (sdtToList != null)
-					{
-						file.WriteLine(Environment.NewLine + "=== STRUCTURE ===");
-						ListStructure(sdtToList.SDTStructure.Root, 0, file);
-					}
-					break;
-
-				default:
-
-					//Unknown object. Use export format.
-					file.Write(SerializeObject(obj).ToString());
-					break;
-			}
-            
+        private static void ListProperties(KBObject obj, StreamWriter file)
+        {
             file.WriteLine(Environment.NewLine + "====== PROPERTIES =======");
             foreach (Property prop in obj.Properties)
             {
@@ -277,7 +273,10 @@ namespace GUG.Packages.KBCodeReview
                     }
                 }
             }
+        }
 
+        private static void ListCategories(KBObject obj, StreamWriter file)
+        {
             //CATEGORIES
             IEnumerable<Artech.Udm.Framework.References.EntityReference> refe = obj.GetReferences();
 
@@ -287,10 +286,11 @@ namespace GUG.Packages.KBCodeReview
             foreach (Artech.Udm.Framework.References.EntityReference reference in refe)
             {
                 Guid GUIDRefTo = reference.To.Type;
-                string GUIDRefToString = GUIDRefTo.ToString();               
-                    
-                if (GUIDRefToString == GUIDCatString) {
-                    KBCategory cat = KBCategory.Get(UIServices.KB.CurrentModel,reference.To.Id);
+                string GUIDRefToString = GUIDRefTo.ToString();
+
+                if (GUIDRefToString == GUIDCatString)
+                {
+                    KBCategory cat = KBCategory.Get(UIServices.KB.CurrentModel, reference.To.Id);
                     categories.Add(cat.Name);
                 }
             }
@@ -303,11 +303,45 @@ namespace GUG.Packages.KBCodeReview
                     file.WriteLine(name);
                 }
             }
-
-
         }
 
-		private static string SerializeObject(KBObject obj)
+        private static void ListSDTStructure( SDT sdtToList, StreamWriter file)
+        {
+            if (sdtToList != null)
+            {
+                file.WriteLine(Environment.NewLine + "=== STRUCTURE ===");
+                ListStructure(sdtToList.SDTStructure.Root, 0, file);
+            }
+        }
+
+        private static void ListTableStructure(Table tbl, StreamWriter file)
+        {
+            foreach (TableAttribute attr in tbl.TableStructure.Attributes)
+            {
+                String line = "";
+                if (attr.IsKey)
+                {
+                    line = "*";
+                }
+                else
+                {
+                    line = " ";
+                }
+
+                line += attr.Name + "  " + attr.GetPropertiesObject().GetPropertyValueString("DataTypeString") + "-" + attr.GetPropertiesObject().GetPropertyValueString("Formula");
+
+                if (attr.IsExternalRedundant)
+                    line += " External_Redundant";
+
+                line += " Null=" + attr.IsNullable;
+                if (attr.IsRedundant)
+                    line += " Redundant";
+
+                file.WriteLine(line);
+            }
+        }
+
+        private static string SerializeObject(KBObject obj)
         {
             StringBuilder buffer = new StringBuilder();
             using (TextWriter writer = new StringWriter(buffer))
