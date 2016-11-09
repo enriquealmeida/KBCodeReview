@@ -19,7 +19,7 @@
   <Menus>
     <Menu type="menubar">
       <Popup refid='ToolsMenu' name='Tools' >
-        <Popup name="KBCodeReviewer"   >
+        <Popup name="KBCodeReview"   >
           <Group name ="Object Comparer">
             <Command refid="ObjectInTextFormat"  />
             <Command refid="SendDiff"  />
