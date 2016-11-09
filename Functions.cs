@@ -5,6 +5,7 @@ using Artech.Architecture.Common.Services;
 using Artech.Genexus.Common;
 using System.IO;
 using System.Linq;
+using Artech.Architecture.UI.Framework.Services;
 
 namespace GUG.Packages.KBCodeReview
 {
@@ -19,9 +20,16 @@ namespace GUG.Packages.KBCodeReview
 
         public static string ReturnPictureVariable(Variable v)
         {
-            string Picture = "";
-            Picture = v.Type.ToString() + "(" + v.Length.ToString() + (v.Decimals > 0 ? "." + v.Decimals.ToString() : "") + ")" + (v.Signed ? "-" : "");
+            string Length = "";
+            if (v.Type.ToString() == "GX_SDT" || v.Type.ToString() == "Boolean" || v.Type.ToString() == "GX_USRDEFTYP")
+                Length = "";
+            else
+                Length = "(" + v.Length.ToString() + (v.Decimals > 0 ? "." + v.Decimals.ToString() : "") + ")" + (v.Signed ? "-" : "");
+
+            string Picture = v.Type.ToString() +  Length ;
+
             return Picture;
+
         }
 
         public static void SaveObject(IOutputService output, KBObject obj)
@@ -59,6 +67,11 @@ namespace GUG.Packages.KBCodeReview
             return name;
         }
 
+        public static string SpcDirectory(IKBService kbserv)
+        {
+            GxModel gxModel = kbserv.CurrentKB.DesignModel.Environment.TargetModel.GetAs<GxModel>();
+            return kbserv.CurrentKB.Location + string.Format(@"\GXSPC{0:D3}\", gxModel.Model.Id);
+        }
 
     }
 }
