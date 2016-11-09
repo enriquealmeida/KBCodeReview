@@ -8,8 +8,8 @@
     <ProjectGuid>{93AFE55B-1DB2-44C7-9D05-06B4479D0C15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GUG.Packages.KBCodeRevisor</RootNamespace>
-    <AssemblyName>KBCodeRevisor</AssemblyName>
+    <RootNamespace>GUG.Packages.KBCodeReview</RootNamespace>
+    <AssemblyName>KBCodeReview</AssemblyName>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <ApplicationIcon>
     </ApplicationIcon>

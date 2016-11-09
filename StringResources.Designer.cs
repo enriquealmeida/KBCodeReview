@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GUG.Packages.KBCodeRevisor {
+namespace GUG.Packages.KBCodeReview {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GUG.Packages.KBCodeRevisor {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GUG.Packages.KBCodeRevisor.StringResources", typeof(StringResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GUG.Packages.KBCodeReview.StringResources", typeof(StringResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
