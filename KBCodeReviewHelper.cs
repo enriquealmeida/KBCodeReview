@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Xsl;
 
 namespace GUG.Packages.KBCodeReview
 {
@@ -201,10 +202,13 @@ namespace GUG.Packages.KBCodeReview
 
             ListProperties(obj, file);
             ListCategories(obj, file);
+            ListVariables(obj, file);
 
 
         }
 
+
+     
         private static void ListRulePart(KBObject obj, StreamWriter file)
         {
             RulesPart rp = obj.Parts.Get<RulesPart>();
@@ -402,10 +406,74 @@ namespace GUG.Packages.KBCodeReview
             return dir;
         }
 
-        public static void ListProperties(KBObject obj)
+        
+        private static void ListVariables(KBObject obj, StreamWriter file)
         {
+            VariablesPart vp = obj.Parts.Get<VariablesPart>();
+            if (vp != null)
+            {
+                file.WriteLine(Environment.NewLine + "=== VARIABLES ===");
+                file.WriteLine(String.Format("{0,2} {1,-30} {2,-30} {3,-30}", "Ch", "Name", "Type", "Based on "));
 
-                
+
+                foreach (Variable v in vp.Variables)
+                {
+                    if (!v.IsStandard)
+                    {
+                        string CheckVar = " ";
+                        string DataType = v.GetPropertyValue<string>(Properties.ATT.DataTypeString);
+
+                        if (v.AttributeBasedOn == null && v.DomainBasedOn == null)
+                            CheckVar = "*";
+
+                        if (v.IsAutoDefined)
+                            CheckVar = "*";
+
+                        file.WriteLine(String.Format("{0,2} {1,-30} {2,-30} {3,-30}", CheckVar, v.Name, Functions.ReturnPictureVariable(v), DataType));
+                    }
+                }
+            }
         }
+
+        /*
+
+        
+private static void ListNavigation(KBObject obj, StreamWriter file)
+{
+
+    IKBService kbserv = UIServices.KB;
+    string outputFile = kbserv.CurrentKB.UserDirectory + @"\KBdoctorEv2.xslt";
+    XslTransform xslTransform = new XslTransform();
+
+    xslTransform.Load(outputFile);
+
+    string fileWildcard =   obj.Name + ".xml";
+    var searchSubDirsArg = System.IO.SearchOption.AllDirectories;
+    string directoryArg = ""; 
+    string[] xFiles = System.IO.Directory.GetFiles(directoryArg, fileWildcard, searchSubDirsArg);
+
+    foreach (string x in xFiles)
+    {
+
+        if (!Path.GetFileNameWithoutExtension(x).StartsWith("Gx0"))
+        {
+            string xTxt = newDir + generator + Path.GetFileNameWithoutExtension(x) + ".nvg";
+
+            string xmlstring = AddXMLHeader(x);
+
+            string newXmlFile = x.Replace(".xml", ".xxx");
+            File.WriteAllText(newXmlFile, xmlstring);
+
+            xslTransform.Transform(newXmlFile, xTxt);
+
+            File.Delete(newXmlFile);
+        }
+
+
+    }
+}
+
+*/
+
     }
 }
