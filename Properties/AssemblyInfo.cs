@@ -38,8 +38,8 @@ using Artech.Architecture.Common.Packages;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.2.*")]
-[assembly: AssemblyFileVersion("0.0.2")]
+[assembly: AssemblyVersion("0.0.6.*")]
+[assembly: AssemblyFileVersion("0.0.6")]
 
 //[assembly: PackageAttribute(typeof(Artech.Packages.TeamDevClient.Package), IsCore = false, IsUIPackage = false)]
 

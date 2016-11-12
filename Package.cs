@@ -6,10 +6,11 @@ using Artech.Common.Properties;
 
 namespace GUG.Packages.KBCodeReview
 {
-    [Guid("0290bda2-2969-47b4-948a-5a0bb880b85f")]
+   
 
     enum Tool { Phabricator, GitHub};
 
+    [Guid("0290bda2-2969-47b4-948a-5a0bb880b85f")]
     public class Package : AbstractPackageUI {
         public static Guid guid = typeof(Package).GUID;
 
