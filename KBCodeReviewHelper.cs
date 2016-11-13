@@ -120,6 +120,7 @@ namespace GUG.Packages.KBCodeReview
             try
             {
                 string outputPath = GetKBCodeReviewDirectory();
+                Functions.WriteXSLTtoDir();
                 foreach (KBObject obj in objects)
                 {
                     output.AddLine(obj.GetFullName());

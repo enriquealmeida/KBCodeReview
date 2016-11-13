@@ -328,6 +328,14 @@ namespace GUG.Packages.KBCodeReview
         {
             return KBCategory.Get(model, "Main Programs");
         }
+
+        public static void WriteXSLTtoDir()
+        {
+            IKBService kbserv = UIServices.KB;
+            string outputFile = kbserv.CurrentKB.UserDirectory + @"\NavigationHtmlToText.xslt";
+            File.WriteAllText(outputFile, Resources.NavigationHTMLtoText);
+
+        }
     }
 }
 
