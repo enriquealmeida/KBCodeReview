@@ -11,7 +11,7 @@ namespace GUG.Packages.KBCodeReview
 {
     class NavigationHelper
     {
-   
+
         public static XmlDocument GetObjectNavigationXML(KBObject obj)
         {
             XmlDocument doc = new XmlDocument();
@@ -66,7 +66,7 @@ namespace GUG.Packages.KBCodeReview
 
         public static string GetNavigation(KBObject obj)
         {
-            
+
             string specFilePath = GetObjectNavigationFile(obj);
 
             //Copy the navigation file to an .xxx file
@@ -76,7 +76,7 @@ namespace GUG.Packages.KBCodeReview
 
             //Output file
             IKBService kbserv = UIServices.KB;
-            string navigationPath = Functions.SpcDirectory(kbserv) + @"NVG\";
+            string navigationPath = Functions.SpcDirectory(kbserv);
             string navigationFilePath = navigationPath + Path.GetFileNameWithoutExtension(specFilePath) + ".nvg";
 
             XslTransform xsl = NavigationHelper._GetNavigationTemplate();
@@ -93,7 +93,7 @@ namespace GUG.Packages.KBCodeReview
         private static XslTransform _GetNavigationTemplate()
         {
             IKBService kbserv = UIServices.KB;
-            string outputFile = kbserv.CurrentKB.UserDirectory + @"\KBdoctorEv2.xslt";
+            string outputFile = kbserv.CurrentKB.UserDirectory + @"\NavigationHtmlToText.xslt";
             XslTransform xsl = new XslTransform();
             xsl.Load(outputFile);
             return xsl;

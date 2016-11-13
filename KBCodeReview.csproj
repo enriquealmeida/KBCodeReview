@@ -194,12 +194,12 @@
     <Compile Include="ObjectsHelper.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SourceHelper.cs" />
-    <Compile Include="StringResources.Designer.cs">
+    <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StringResources.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SourceHelper.cs" />
     <Compile Include="XMLWriter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -209,16 +209,17 @@
     <Content Include="Documentacion\BugConocidos.txt" />
     <Content Include="Documentacion\Cambios.txt" />
     <Content Include="Documentacion\FaltaHacer.txt" />
+    <None Include="Resources\NavigationHTMLToText.xsl" />
     <EmbeddedResource Include="AboutKBCodeReview.resx">
       <DependentUpon>AboutKBCodeReview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KBCodeReview.package">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="StringResources.resx">
+    <EmbeddedResource Include="Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

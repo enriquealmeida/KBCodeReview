@@ -13,7 +13,7 @@ namespace GUG.Packages.KBCodeReview
         public XMLWriter(string xmlfile, Encoding enc): base(xmlfile, enc)
         {
         }
-
+        /*
         public void AddHeader(string title)
         {
             //Salvo JS a directorio de trabajo
@@ -94,6 +94,7 @@ namespace GUG.Packages.KBCodeReview
             WriteElementString("h2", title);
         }
 
+
         private static void _WriteJScripttoDir()
         {
             IKBService kbserv = UIServices.KB;
@@ -103,6 +104,6 @@ namespace GUG.Packages.KBCodeReview
             outputFile = kbserv.CurrentKB.UserDirectory + @"\jquery_tablesorter.js";
             File.WriteAllText(outputFile, StringResources.jquery_tablesorter);
 
-        }
+        }*/
     }
 }

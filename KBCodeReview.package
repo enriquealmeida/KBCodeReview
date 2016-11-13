@@ -4,7 +4,7 @@
          name='KBCodeReview'>
   <!-- Definicion de comandos -->
   <Resources>
-    <Resource type="strings" name="GUG.Packages.KBCodeReview.StringResources"/>
+    <Resource type="strings" name="GUG.Packages.KBCodeReview.Resources"/>
   </Resources>
   <Commands>
     <CommandDefinition id="ObjectInTextFormat" />
