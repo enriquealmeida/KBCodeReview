@@ -98,10 +98,10 @@ namespace GUG.Packages.KBCodeReview
         {
             IKBService kbserv = UIServices.KB;
             string outputFile = kbserv.CurrentKB.UserDirectory + @"\jquery_latest.js";
-            //File.WriteAllText(outputFile, StringResources.jquery_latest);
+            File.WriteAllText(outputFile, StringResources.jquery_latest);
 
             outputFile = kbserv.CurrentKB.UserDirectory + @"\jquery_tablesorter.js";
-           // File.WriteAllText(outputFile, StringResources.jquery_tablesorter);
+            File.WriteAllText(outputFile, StringResources.jquery_tablesorter);
 
         }
     }

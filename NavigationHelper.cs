@@ -76,7 +76,7 @@ namespace GUG.Packages.KBCodeReview
 
             //Output file
             IKBService kbserv = UIServices.KB;
-            string navigationPath = Functions.SpcDirectory(kbserv);
+            string navigationPath = Functions.SpcDirectory(kbserv) + @"NVG\";
             string navigationFilePath = navigationPath + Path.GetFileNameWithoutExtension(specFilePath) + ".nvg";
 
             XslTransform xsl = NavigationHelper._GetNavigationTemplate();
@@ -93,7 +93,7 @@ namespace GUG.Packages.KBCodeReview
         private static XslTransform _GetNavigationTemplate()
         {
             IKBService kbserv = UIServices.KB;
-            string outputFile = kbserv.CurrentKB.UserDirectory + @"\NavigationHtmlToText.xslt";
+            string outputFile = kbserv.CurrentKB.UserDirectory + @"\KBdoctorEv2.xslt";
             XslTransform xsl = new XslTransform();
             xsl.Load(outputFile);
             return xsl;
