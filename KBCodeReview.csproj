@@ -52,6 +52,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
     <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>0618</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -189,13 +190,17 @@
     <Compile Include="KBCodeReviewHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NavigationHelper.cs" />
+    <Compile Include="ObjectsHelper.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringResources.Designer.cs">
+    <Compile Include="SourceHelper.cs" />
+    <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StringResources.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="XMLWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Catalog.xml">
@@ -204,16 +209,18 @@
     <Content Include="Documentacion\BugConocidos.txt" />
     <Content Include="Documentacion\Cambios.txt" />
     <Content Include="Documentacion\FaltaHacer.txt" />
+    <None Include="Resources\NavigationHTMLtoText.xsl" />
     <EmbeddedResource Include="AboutKBCodeReview.resx">
       <DependentUpon>AboutKBCodeReview.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="KBCodeReview.package">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="StringResources.resx">
+    <EmbeddedResource Include="Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
