@@ -141,7 +141,7 @@ namespace GUG.Packages.KBCodeReview
 
         public static void WriteObjectToTextFile(KBObject obj, string rootFolderPath)
         {
-            string objectFolderPath = _GetObjectFolderPath(obj, rootFolderPath);
+            string objectFolderPath = GetObjectFolderPath(obj, rootFolderPath);
             if (!Directory.Exists(objectFolderPath))
                 Directory.CreateDirectory(objectFolderPath);
 
@@ -150,14 +150,14 @@ namespace GUG.Packages.KBCodeReview
             string filePath = Path.Combine(objectFolderPath, name);
             using (StreamWriter file = new StreamWriter(filePath))
             {
-                _PrintHeaderLine("OBJECT:" + obj.Name + " -" + obj.Description + "- TYPE:" + obj.TypeDescriptor.Name, file);
-                _WriteObjectContent(obj, file);
+                PrintHeaderLine("OBJECT:" + obj.Name + " -" + obj.Description + "- TYPE:" + obj.TypeDescriptor.Name, file);
+                WriteObjectContent(obj, file);
             }
         }
 
-        private static string _GetObjectFolderPath(KBObject obj, string rootFolderPath)
+        private static string GetObjectFolderPath(KBObject obj, string rootFolderPath)
         {
-            string parentPath = (obj.ParentKey != null) ? _GetObjectFolderPath(obj.Parent, rootFolderPath) : rootFolderPath;
+            string parentPath = (obj.ParentKey != null) ? GetObjectFolderPath(obj.Parent, rootFolderPath) : rootFolderPath;
 
             string objectPath = parentPath;
             if (obj is Folder || obj is Module)
@@ -166,25 +166,25 @@ namespace GUG.Packages.KBCodeReview
             return objectPath;
         }
 
-        private static void _WriteObjectContent(KBObject obj, StreamWriter file)
+        private static void WriteObjectContent(KBObject obj, StreamWriter file)
         {
 
-            _ListRulePart(obj, file);
-            _ListVariables(obj, file);
-            _ListStats(obj, file);
+            ListRulePart(obj, file);
+            ListVariables(obj, file);
+            ListStats(obj, file);
 
-            _ListEvents(obj, file);
+            ListEvents(obj, file);
 
             switch (obj.TypeDescriptor.Name)
             {
                 case "Attribute":
-                    _ListAttribute(obj, file);
+                    ListAttribute(obj, file);
                     break;
                 case "Procedure":
-                    _ListProcedureSource(obj, file);
+                    ListProcedureSource(obj, file);
                     break;
                 case "Transaction":
-                    _ListTransactionStructure(obj, file);
+                    ListTransactionStructure(obj, file);
                     break;
                 case "WorkPanel":
                     break;
@@ -194,37 +194,37 @@ namespace GUG.Packages.KBCodeReview
                     break;
                 case "Table":
                     Table tbl = (Table)obj;
-                    _ListTableStructure(tbl, file);
+                    ListTableStructure(tbl, file);
                     break;
                 case "SDT":
                     SDT sdtToList = (SDT)obj;
-                    _ListSDTStructure(sdtToList, file);
+                    ListSDTStructure(sdtToList, file);
                     break;
                 default:
                     //Unknown object. Use export format.
-                    file.Write(_SerializeObject(obj).ToString());
+                    file.Write(SerializeObject(obj).ToString());
                     break;
             }
 
 
-            _ListProperties(obj, file);
-            _ListCategories(obj, file);
-            _ListNavigation(obj, file);
+            ListProperties(obj, file);
+            ListCategories(obj, file);
+            ListNavigation(obj, file);
         }
 
-        private static void _PrintHeaderLine(string Title, StreamWriter file)
+        private static void PrintHeaderLine(string Title, StreamWriter file)
         {
             file.WriteLine("************   " + Title.ToUpper() + "   ************************************");
         }
 
-        private static void _PrintSectionHeader(string Title, StreamWriter file)
+        private static void PrintSectionHeader(string Title, StreamWriter file)
         {
             file.WriteLine(Environment.NewLine + "============   " + Title.ToUpper() + "   ==============================================");
         }
 
-        private static void _ListStats(KBObject obj, StreamWriter file)
+        private static void ListStats(KBObject obj, StreamWriter file)
         {
-            _PrintSectionHeader("QUALITIY INDICATORS", file);
+            PrintSectionHeader("QUALITIY INDICATORS", file);
 
             int sourceLines = ObjectsHelper.CountSourceCodeLines(obj);
             file.WriteLine("LINES of Code :   {0,-10}", sourceLines.ToString());
@@ -243,22 +243,22 @@ namespace GUG.Packages.KBCodeReview
 
         }
 
-        private static void _ListRulePart(KBObject obj, StreamWriter file)
+        private static void ListRulePart(KBObject obj, StreamWriter file)
         {
             RulesPart rp = obj.Parts.Get<RulesPart>();
             if (rp != null)
             {
-                _PrintSectionHeader("RULES", file);
+                PrintSectionHeader("RULES", file);
 
                 file.WriteLine(rp.Source);
-                if (!_ValidateParms(obj))
+                if (!ValidateParms(obj))
                 {
                     file.WriteLine("--> ATTENTION REVIEWER: Parameters without IN/OUT");
                 }
             }
         }
 
-        private static bool _ValidateParms(KBObject obj)
+        private static bool ValidateParms(KBObject obj)
         {
             bool result = true;
             // Object with parm() rule without in: out: or inout:
@@ -287,7 +287,7 @@ namespace GUG.Packages.KBCodeReview
                             int countsemicolon = ruleParm.Split(new char[] { ':' }).Length - 1;
                             if (countparms != countsemicolon)
                             {
-                                string objNameLink = Functions.linkObject(obj);
+                                string objNameLink = Functions.LinkObject(obj);
 
                                 KBObjectCollection objColl = new KBObjectCollection();
 
@@ -300,7 +300,7 @@ namespace GUG.Packages.KBCodeReview
             return result;
         }
 
-        private static void _ListAttribute(KBObject obj, StreamWriter file)
+        private static void ListAttribute(KBObject obj, StreamWriter file)
         {
             Artech.Genexus.Common.Objects.Attribute att = (Artech.Genexus.Common.Objects.Attribute)obj;
 
@@ -311,39 +311,39 @@ namespace GUG.Packages.KBCodeReview
                 file.WriteLine(att.Formula.ToString());
         }
 
-        private static void _ListProcedureSource(KBObject obj, StreamWriter file)
+        private static void ListProcedureSource(KBObject obj, StreamWriter file)
         {
             ProcedurePart pp = obj.Parts.Get<ProcedurePart>();
             if (pp != null)
             {
-                _PrintSectionHeader("PROCEDURE SOURCE", file);
+                PrintSectionHeader("PROCEDURE SOURCE", file);
                 file.WriteLine(pp.Source);
             }
         }
 
-        private static void _ListTransactionStructure(KBObject obj, StreamWriter file)
+        private static void ListTransactionStructure(KBObject obj, StreamWriter file)
         {
             StructurePart sp = obj.Parts.Get<StructurePart>();
             if (sp != null)
             {
-                _PrintSectionHeader("STRUCTURE", file);
+                PrintSectionHeader("STRUCTURE", file);
                 file.WriteLine(sp.ToString());
             }
         }
 
-        private static void _ListEvents(KBObject obj, StreamWriter file)
+        private static void ListEvents(KBObject obj, StreamWriter file)
         {
             EventsPart ep = obj.Parts.Get<EventsPart>();
             if (ep != null)
             {
-                _PrintSectionHeader("EVENTS SOURCE", file);
+                PrintSectionHeader("EVENTS SOURCE", file);
                 file.WriteLine(ep.Source);
             }
         }
 
-        private static void _ListProperties(KBObject obj, StreamWriter file)
+        private static void ListProperties(KBObject obj, StreamWriter file)
         {
-            _PrintSectionHeader("PROPERTIES", file);
+            PrintSectionHeader("PROPERTIES", file);
             foreach (Property prop in obj.Properties)
             {
                 if (!prop.IsDefault)
@@ -360,11 +360,11 @@ namespace GUG.Packages.KBCodeReview
             }
         }
 
-        private static void _ListVariables(KBObject obj, StreamWriter file)
+        private static void ListVariables(KBObject obj, StreamWriter file)
         {
             bool hasUnusedVars = false;
 
-            _PrintSectionHeader("VARIABLE DEFINITION", file);
+            PrintSectionHeader("VARIABLE DEFINITION", file);
             file.WriteLine(String.Format("{0,-3} {1,-30} {2,-30} {3,-30} {4,-30}", "", "Name", "Type", "Based on", "Desc"));
 
             VariablesPart vars = obj.Parts.Get<VariablesPart>();
@@ -416,7 +416,7 @@ namespace GUG.Packages.KBCodeReview
             }
         }
 
-        private static void _ListCategories(KBObject obj, StreamWriter file)
+        private static void ListCategories(KBObject obj, StreamWriter file)
         {
             //CATEGORIES
             IEnumerable<Artech.Udm.Framework.References.EntityReference> refe = obj.GetReferences();
@@ -438,7 +438,7 @@ namespace GUG.Packages.KBCodeReview
 
             if (categories.Count > 0)
             {
-                _PrintSectionHeader("CATEGORIES", file);
+                PrintSectionHeader("CATEGORIES", file);
                 foreach (string name in categories)
                 {
                     file.WriteLine(name);
@@ -446,16 +446,16 @@ namespace GUG.Packages.KBCodeReview
             }
         }
 
-        private static void _ListSDTStructure(SDT sdtToList, StreamWriter file)
+        private static void ListSDTStructure(SDT sdtToList, StreamWriter file)
         {
             if (sdtToList != null)
             {
-                _PrintSectionHeader("SDT STRUCTURE", file);
-                _ListStructure(sdtToList.SDTStructure.Root, 0, file);
+                PrintSectionHeader("SDT STRUCTURE", file);
+                ListStructure(sdtToList.SDTStructure.Root, 0, file);
             }
         }
 
-        private static void _ListTableStructure(Table tbl, StreamWriter file)
+        private static void ListTableStructure(Table tbl, StreamWriter file)
         {
             foreach (TableAttribute attr in tbl.TableStructure.Attributes)
             {
@@ -482,7 +482,7 @@ namespace GUG.Packages.KBCodeReview
             }
         }
 
-        private static string _SerializeObject(KBObject obj)
+        private static string SerializeObject(KBObject obj)
         {
             StringBuilder buffer = new StringBuilder();
             using (TextWriter writer = new StringWriter(buffer))
@@ -490,28 +490,28 @@ namespace GUG.Packages.KBCodeReview
             return buffer.ToString();
         }
 
-        private static void _ListStructure(SDTLevel level, int tabs, System.IO.StreamWriter file)
+        private static void ListStructure(SDTLevel level, int tabs, StreamWriter file)
         {
-            _WriteTabs(tabs, file);
+            WriteTabs(tabs, file);
             file.Write(level.Name);
             if (level.IsCollection)
                 file.Write(", collection: {0}", level.CollectionItemName);
             file.WriteLine();
 
             foreach (var childItem in level.GetItems<SDTItem>())
-                _ListItem(childItem, tabs + 1, file);
+                ListItem(childItem, tabs + 1, file);
             foreach (var childLevel in level.GetItems<SDTLevel>())
-                _ListStructure(childLevel, tabs + 1, file);
+                ListStructure(childLevel, tabs + 1, file);
         }
 
-        private static void _ListItem(SDTItem item, int tabs, System.IO.StreamWriter file)
+        private static void ListItem(SDTItem item, int tabs, StreamWriter file)
         {
-            _WriteTabs(tabs, file);
+            WriteTabs(tabs, file);
             string dataType = item.Type.ToString().Substring(0, 1) + "(" + item.Length.ToString() + (item.Decimals > 0 ? "." + item.Decimals.ToString() : "") + ")" + (item.Signed ? "-" : "");
             file.WriteLine("{0}, {1}, {2} {3}", item.Name, dataType, item.Description, (item.IsCollection ? ", collection " + item.CollectionItemName : ""));
         }
 
-        private static void _WriteTabs(int tabs, System.IO.StreamWriter file)
+        private static void WriteTabs(int tabs, StreamWriter file)
         {
             while (tabs-- > 0)
                 file.Write('\t');
@@ -536,10 +536,10 @@ namespace GUG.Packages.KBCodeReview
             return dir;
         }
 
-        private static void _ListNavigation(KBObject obj, StreamWriter file)
+        private static void ListNavigation(KBObject obj, StreamWriter file)
         {
 
-            _PrintSectionHeader("NAVIGATION", file);
+            PrintSectionHeader("NAVIGATION", file);
 
             string navigation = NavigationHelper.GetNavigation(obj);
 

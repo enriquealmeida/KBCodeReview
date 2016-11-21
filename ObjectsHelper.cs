@@ -28,7 +28,7 @@ namespace GUG.Packages.KBCodeReview
 
         }
 
-        private static string _ObjectSourceUpper(KBObject obj)
+        private static string ObjectSourceUpper(KBObject obj)
         {
             string source = "";
             try
@@ -58,7 +58,7 @@ namespace GUG.Packages.KBCodeReview
 
                 if (ObjectsHelper.isGenerated(obj) && !ObjectsHelper.isGeneratedbyPattern(obj))
                 {
-                    string source = ObjectsHelper._ObjectSourceUpper(obj);
+                    string source = ObjectsHelper.ObjectSourceUpper(obj);
                     source = Functions.RemoveEmptyLines(source);
 
                     sourceWOComments = Functions.ExtractComments(source);
@@ -76,7 +76,7 @@ namespace GUG.Packages.KBCodeReview
 
                 if (ObjectsHelper.isGenerated(obj) && !ObjectsHelper.isGeneratedbyPattern(obj))
                 {
-                    source = ObjectsHelper._ObjectSourceUpper(obj);
+                    source = ObjectsHelper.ObjectSourceUpper(obj);
                     source = Functions.RemoveEmptyLines(source);
 
                 }
