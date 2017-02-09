@@ -39,7 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Program Files (x86)\Artech\GeneXus\GeneXusXEv3\GeneXus.exe</StartProgram>
+    <StartProgram>C:\Program Files (x86)\Artech\GeneXus\GeneXusXEv2\GeneXus.exe</StartProgram>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -67,103 +67,103 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Artech.Architecture.BL.Framework">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Architecture.BL.Framework.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Architecture.BL.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Architecture.Common">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Architecture.Common.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Architecture.Common.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Architecture.Language">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Architecture.Language.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Architecture.Language.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Architecture.UI.Framework">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Architecture.UI.Framework.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Architecture.UI.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Common">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Common.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Common.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Common.Controls">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Common.Controls.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Common.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Common.Framework">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Common.Framework.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Common.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Common.Helpers">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Common.Helpers.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Common.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Common.Language">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Common.Language.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Common.Language.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Common.Properties">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Common.Properties.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Common.Properties.dll</HintPath>
     </Reference>
     <Reference Include="Artech.FrameworkDE">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.FrameworkDE.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.FrameworkDE.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Genexus.Common">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Genexus.Common.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Genexus.Common.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Layers.Framework">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Layers.Framework.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Layers.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Artech.MsBuild.Common">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.MsBuild.Common.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.MsBuild.Common.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Packages.Patterns">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Packages.Patterns.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Packages.Patterns.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Template.Base">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Template.Base.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Template.Base.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Template.Helper">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Template.Helper.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Template.Helper.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Template.Parser">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Template.Parser.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Template.Parser.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.Architecture.Common">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.Architecture.Common.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.Architecture.Common.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.BL">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.BL.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.BL.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.Data">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.Data.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.Data.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.Framework">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.Framework.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.Layers">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.Layers.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.Layers.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.Layers.BL">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.Layers.BL.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.Layers.BL.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.Layers.Common">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.Layers.Common.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.Layers.Common.dll</HintPath>
     </Reference>
     <Reference Include="Artech.Udm.Layers.Data.SQL">
-      <HintPath>$(GX_SDK_DIR)\Bin\Artech.Udm.Layers.Data.SQL.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Artech.Udm.Layers.Data.SQL.dll</HintPath>
     </Reference>
     <Reference Include="Connector">
-      <HintPath>$(GX_SDK_DIR)\Bin\Connector.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Connector.dll</HintPath>
     </Reference>
     <Reference Include="DeklaritLibrary">
-      <HintPath>$(GX_SDK_DIR)\Bin\DeklaritLibrary.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\DeklaritLibrary.dll</HintPath>
     </Reference>
     <Reference Include="GxDataLayer">
-      <HintPath>$(GX_SDK_DIR)\Bin\GxDataLayer.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\GxDataLayer.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>$(GX_SDK_DIR)\Bin\log4net.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
-      <HintPath>$(GX_SDK_DIR)\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling">
-      <HintPath>$(GX_SDK_DIR)\Bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder">
-      <HintPath>$(GX_SDK_DIR)\Bin\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+      <HintPath>$(GX_SDK_DIR2)\Bin\Microsoft.Practices.ObjectBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -173,7 +173,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(GX_SDK_DIR)\Src\CommonPackageInfo.cs">
+    <Compile Include="..\..\..\..\..\Program Files %28x86%29\Artech\GeneXus\GeneXusXEv2PlatformSDK\Src\CommonPackageInfo.cs">
       <Link>CommonPackageInfo.cs</Link>
     </Compile>
     <Compile Include="AboutKBCodeReview.cs">
@@ -248,8 +248,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)" "$(GX_PROGRAM_DIR)\Packages" /q /Y
-if exist "$(TargetDir)$(TargetName).pdb" xcopy "$(TargetDir)$(TargetName).pdb" "$(GX_PROGRAM_DIR)\Packages" /q /Y
-"$(GX_PROGRAM_DIR)\GeneXus" /install</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)" "$(GX_PROGRAM_DIR2)\Packages" /q /Y
+if exist "$(TargetDir)$(TargetName).pdb" xcopy "$(TargetDir)$(TargetName).pdb" "$(GX_PROGRAM_DIR2)\Packages" /q /Y
+"$(GX_PROGRAM_DIR2)\GeneXus" /install</PostBuildEvent>
   </PropertyGroup>
 </Project>
