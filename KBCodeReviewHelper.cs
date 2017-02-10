@@ -160,7 +160,9 @@ namespace GUG.Packages.KBCodeReview
             string parentPath = (obj.ParentKey != null) ? GetObjectFolderPath(obj.Parent, rootFolderPath) : rootFolderPath;
 
             string objectPath = parentPath;
-            if (obj is Folder || obj is Module)
+            ////EVO3:
+            // if (obj is Folder || obj is Module)
+            if (obj is Folder)
                 objectPath = Path.Combine(parentPath, obj.Name);
 
             return objectPath;
@@ -346,17 +348,18 @@ namespace GUG.Packages.KBCodeReview
             PrintSectionHeader("PROPERTIES", file);
             foreach (Property prop in obj.Properties)
             {
-                if (!prop.IsDefault)
-                {
-                    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
-                }
-                else
-                {
+                //EVO3:
+                //if (!prop.IsDefault)
+                //{
+                //    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+                //}
+                //else
+                //{
                     if ((prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
                     {
                         file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
                     }
-                }
+               // }
             }
         }
 

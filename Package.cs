@@ -35,6 +35,7 @@ namespace GUG.Packages.KBCodeReview
         private void AddMyProperties()
         {
             string propDefinitionKey = DefinitionsHelper.GetPropertiesDefinitionKey<Artech.Architecture.Common.Objects.KBModel>();
+
             PropertiesDefinition myTrnProperties = new PropertiesDefinition(propDefinitionKey);
             PropDefinition myBool = new PropDefinition("Code Review Tool", typeof(Tool), null, "Tool for code review");
             myTrnProperties.Add(myBool);
