@@ -265,19 +265,17 @@ namespace GUG.Packages.KBCodeReview
 
         public static void WriteObjectToTextFile(KBObject obj, string rootFolderPath)
         {
-            string objectFolderPath = GetObjectFolderPath(obj, rootFolderPath);
-            if (!Directory.Exists(objectFolderPath))
-                Directory.CreateDirectory(objectFolderPath);
 
             string name = Functions.ReplaceInvalidCharacterInFileName(obj.Name) + ".txt";
 
-            string filePath = Path.Combine(objectFolderPath, name);
+            string filePath = Path.Combine(rootFolderPath, name);
             using (StreamWriter file = new StreamWriter(filePath))
             {
-                PrintHeaderLine("OBJECT:" + obj.Name + " -" + obj.Description + "- TYPE:" + obj.TypeDescriptor.Name, file);
+                file.WriteLine("======OBJECT = " + name + " === " + obj.Description + "=====");
                 WriteObjectContent(obj, file);
             }
         }
+
 
         private static string GetObjectFolderPath(KBObject obj, string rootFolderPath)
         {
