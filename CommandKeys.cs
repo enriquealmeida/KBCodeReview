@@ -13,6 +13,9 @@ namespace GUG.Packages.KBCodeReview
         private static CommandKey openFolderKBCodeReview = new CommandKey(Package.guid, "OpenFolderKBCodeReview");
         public static CommandKey OpenFolderKBCodeReview { get { return openFolderKBCodeReview; } }
 
+        private static CommandKey clone = new CommandKey(Package.guid, "Clone");
+        public static CommandKey Clone { get { return clone; } }
+
         private static CommandKey pushChanges = new CommandKey(Package.guid, "PushChanges");
         public static CommandKey PushChanges { get { return pushChanges; } }
 

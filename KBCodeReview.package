@@ -4,9 +4,10 @@
          name='KBCodeReview'>
   <!-- Definicion de comandos -->
   <Resources>
-    <Resource type="strings" name="GUG.Packages.KBCodeReview.StringResources"/>
+    <Resource type="strings" name="GUG.Packages.KBCodeReview.Resources"/>
   </Resources>
   <Commands>
+    <CommandDefinition id="Clone" />
     <CommandDefinition id="ObjectInTextFormat" />
     <CommandDefinition id="PushChanges" />
     <CommandDefinition id="SendDiff" />
@@ -21,6 +22,7 @@
       <Popup refid='ToolsMenu' name='Tools' >
         <Popup name="KBCodeReview"   >
           <Group name ="Object Comparer">
+            <Command refid="Clone"  />
             <Command refid="ObjectInTextFormat"  />
             <Command refid="SendDiff"  />
             <Command refid="PushChanges"  />            

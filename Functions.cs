@@ -20,7 +20,7 @@ namespace GUG.Packages.KBCodeReview
             return reg.Replace(HTMLText, " ");
         }
 
-        public static string linkFile(string file)
+        public static string LinkFile(string file)
         {
             return "<a href=\"file:///" + file + "\"" + ">" + file + "</a" + ">";
         }
@@ -59,14 +59,14 @@ namespace GUG.Packages.KBCodeReview
                 ProcedurePart pp = obj.Parts.Get<ProcedurePart>();
                 if (pp != null)
                 {
-                    varused = _VarUsedInText(pp.Source, v.Name);
+                    varused = VariableIsUsedInText(pp.Source, v.Name);
                 }
                 if (!varused)
                 {
                     RulesPart rp = obj.Parts.Get<RulesPart>();
                     if (rp != null)
                     {
-                        varused = _VarUsedInText(rp.Source, v.Name);
+                        varused = VariableIsUsedInText(rp.Source, v.Name);
                     }
                 }
                 if (!varused)
@@ -74,7 +74,7 @@ namespace GUG.Packages.KBCodeReview
                     ConditionsPart cp = obj.Parts.Get<ConditionsPart>();
                     if (cp != null)
                     {
-                        varused = _VarUsedInText(cp.Source, v.Name);
+                        varused = VariableIsUsedInText(cp.Source, v.Name);
                     }
                 }
                 if (!varused)
@@ -82,7 +82,7 @@ namespace GUG.Packages.KBCodeReview
                     EventsPart ep = obj.Parts.Get<EventsPart>();
                     if (ep != null)
                     {
-                        varused = _VarUsedInText(ep.Source, v.Name);
+                        varused = VariableIsUsedInText(ep.Source, v.Name);
                     }
                 }
                 if (!varused)
@@ -90,7 +90,7 @@ namespace GUG.Packages.KBCodeReview
                     WebFormPart fp = obj.Parts.Get<WebFormPart>();
                     if (fp != null)
                     {
-                        varused = _VarUsedInWebForm(fp, v.Id); ;
+                        varused = VariableIsUsedInWebForm(fp, v.Id); ;
                     }
                 }
                 
@@ -269,12 +269,12 @@ namespace GUG.Packages.KBCodeReview
             return aux;
         }
 
-        public static string linkObject(KBObject obj)
+        public static string LinkObject(KBObject obj)
         {
             return "<a href=\"gx://?Command=fa2c542d-cd46-4df2-9317-bd5899a536eb;OpenObject&name=" + obj.Guid.ToString() + "\">" + obj.Name + "</a>";
         }
 
-        private static bool _VarUsedInText(string sourceCode, string varName)
+        private static bool VariableIsUsedInText(string sourceCode, string varName)
         {
             bool usedvar = false;
             if (sourceCode != null)
@@ -297,7 +297,7 @@ namespace GUG.Packages.KBCodeReview
             }
         }
 
-        private static bool _VarUsedInWebForm(WebFormPart wF, int varId)
+        private static bool VariableIsUsedInWebForm(WebFormPart wF, int varId)
         {
             return (wF.GetVariable(varId) != null);
         }
@@ -329,11 +329,12 @@ namespace GUG.Packages.KBCodeReview
             return KBCategory.Get(model, "Main Programs");
         }
 
+
         public static void WriteXSLTtoDir()
         {
             IKBService kbserv = UIServices.KB;
             string outputFile = kbserv.CurrentKB.UserDirectory + @"\NavigationHtmlToText.xslt";
-            File.WriteAllText(outputFile, Resources.NavigationHTMLtoText);
+            File.WriteAllText(outputFile, Resources.NavigationHTMLToText);
 
         }
     }

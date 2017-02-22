@@ -2,8 +2,11 @@ using Artech.Architecture.UI.Framework.Helper;
 using Artech.Architecture.UI.Framework.Services;
 using Artech.Common.Framework.Commands;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Artech.Genexus.Common;
+using Artech.Architecture.Common.Objects;
 
 namespace GUG.Packages.KBCodeReview
 {
@@ -13,6 +16,7 @@ namespace GUG.Packages.KBCodeReview
 		{
 			AddCommand(CommandKeys.ObjectInTextFormat, new ExecHandler(ExecObjectInTextFormat), new QueryHandler(EnableWhenKbOpened));
 			AddCommand(CommandKeys.OpenFolderKBCodeReview, new ExecHandler(ExecOpenFolderKBCodeReview), new QueryHandler(EnableWhenKbOpened));
+            AddCommand(CommandKeys.Clone, new ExecHandler(ExecClone), new QueryHandler(EnableWhenKbOpened));
             AddCommand(CommandKeys.SendDiff, new ExecHandler(ExecSendDiff), new QueryHandler(EnableWhenKbOpened));
             AddCommand(CommandKeys.PushChanges, new ExecHandler(ExecPushChanges), new QueryHandler(EnableWhenKbOpened));            
             AddCommand(CommandKeys.AboutKBCodeReview, new ExecHandler(ExecAboutKBCodeReview), new QueryHandler(EnableAlways));
@@ -38,14 +42,22 @@ namespace GUG.Packages.KBCodeReview
 
         public bool ExecObjectInTextFormat(CommandData cmdData)
         {
+            
             KBCodeReviewHelper.ExportObjectInTextFormat();
+            bool ok = KBCodeReviewHelper.GitPull();
 
             return true;
 		}
 
+        public bool ExecClone(CommandData cmdData)
+        {
+            KBCodeReviewHelper.GitClone();
+            return true;
+        }
+        
         public bool ExecSendDiff(CommandData cmdData)
         {
-            KBCodeReviewHelper.GitInit();
+            //KBCodeReviewHelper.GitInit();
             KBCodeReviewHelper.GitCommit();
             KBCodeReviewHelper.ArcDiff();
             

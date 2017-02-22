@@ -96,9 +96,9 @@ namespace GUG.Packages.KBCodeReview {
         ///    &lt;xsl:param name=&quot;title&quot;&gt;Table Title&lt;/xsl:param&gt;
         ///    [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string NavigationHTMLtoText {
+        internal static string NavigationHTMLToText {
             get {
-                return ResourceManager.GetString("NavigationHTMLtoText", resourceCulture);
+                return ResourceManager.GetString("NavigationHTMLToText", resourceCulture);
             }
         }
         

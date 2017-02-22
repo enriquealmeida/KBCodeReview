@@ -124,8 +124,8 @@
     <value>Help KBCodeReview</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NavigationHTMLtoText" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\navigationhtmltotext.xsl;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="NavigationHTMLToText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\NavigationHTMLToText.xsl;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="ObjectInTextFormat" xml:space="preserve">
     <value>Export objects in text format</value>
