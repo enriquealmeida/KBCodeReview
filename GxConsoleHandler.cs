@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Artech.Architecture.Common.Services;
+using System.Collections;
 
 namespace GUG.Packages.KBCodeReview
 {
@@ -12,12 +13,15 @@ namespace GUG.Packages.KBCodeReview
         private static string OutputId = "General";
 
         // THIS MUST BE SEPARATED FROM HERE
-        public static void GitConsoleWriter(string result,string title)
+        public static void GitConsoleWriter(ArrayList lines,string title,bool success)
         {
             IOutputService output = InitializeGXOutput();
             GXWrtStartConsole(output, title);
-            GXWrtLineConsole(output, result);
-            GXEndOutputSection(output, title, true);
+            foreach (string ln in lines)
+            {
+                GXWrtLineConsole(output, ln);
+            }
+            GXEndOutputSection(output, title, success);
         }
 
 
@@ -40,12 +44,16 @@ namespace GUG.Packages.KBCodeReview
             output.StartSection(text);
         }
 
-        private static void GXWrtLineConsole(IOutputService output, string text)
+        public static void GXWrtLineConsole(IOutputService output, string text)
         {
+            if (output == null)
+            {
+                output = CommonServices.Output;
+            }
             output.AddLine(text);
         }
 
-        private static void GXEndOutputSection(IOutputService output,string title,bool success)
+        public static void GXEndOutputSection(IOutputService output,string title,bool success)
         {
             output.EndSection(title, success);
             output.UnselectOutput(OutputId);

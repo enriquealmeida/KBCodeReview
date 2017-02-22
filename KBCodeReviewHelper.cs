@@ -9,6 +9,7 @@ using Artech.Genexus.Common.Services;
 using Artech.Genexus.Common.Parts;
 using Artech.Genexus.Common.Parts.SDT;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -28,40 +29,163 @@ namespace GUG.Packages.KBCodeReview
         public static void GitInit()
         {
             string path = KBCodeReviewHelper.GetKBCodeReviewDirectory() + "/.git";
+            ArrayList lines = new ArrayList();
+            string result;
+            bool success;
             if (!Directory.Exists(path))
             {
 
-                string result = ExecuteCommand.Execute("git init");
-                GxConsoleHandler.GitConsoleWriter(result, "KBCodeReviewer - Execute Git Init");
+                ExecuteCommand.Execute("git init",out result,out success);
+                lines.Add(result);
+                GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReviewer - Execute Git Init", success);
 
             }
             else
             {
-                GxConsoleHandler.GitConsoleWriter("Git was already initialized", "KBCodeReviewer - Execute Git Init");
+                lines.Add("Git was already initialized");
+                GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReview - Execute Git Init",true);
 
             }
 
         }
 
+        public static void GitClone()
+        {
+            string GitUser = PropertyAccessor.GetValueString(UIServices.KB.CurrentModel, "Git UserName");
+            string GitPwd = PropertyAccessor.GetValueString(UIServices.KB.CurrentModel, "Git Password");
+            string GitServer = PropertyAccessor.GetValueString(UIServices.KB.CurrentModel, "Git remote server");
+
+            string user2 = PropertyAccessor.GetValueString(UIServices.KB.CurrentModel, "Git UserName");
+            string url = "https://" + GitUser.ToString() + ":" + GitPwd.ToString() + "@" + GitServer.ToString();
+            string result2;
+            ArrayList debug = new ArrayList();
+            result2 = "User: " + GitUser.ToString();
+            debug.Add(result2);
+            result2 = "Password: " + GitPwd.ToString();
+            debug.Add(result2);
+            result2 = "GitServer: " + GitServer.ToString();
+            debug.Add(result2);
+            result2 = "GitUrl: " + url.ToString();
+            debug.Add(result2);
+            result2 = "User2: " + user2.ToString();
+            debug.Add(result2);
+
+            GxConsoleHandler.GitConsoleWriter(debug, "Debugging", true);
+            string result;
+            ArrayList lines = new ArrayList();
+            bool success;
+            if (GitServer != "")
+            {
+                if ((GitUser != "") && (GitPwd != ""))
+                {
+                    ExecuteCommand.Execute("git clone " + url + " .", out result, out success);
+                }
+                else
+                {
+                    result = "UserName or Password can not be null";
+                    success = false;
+                }
+            }
+            else
+            {
+                result = "Git remote server can not be null";
+                success = false;
+            }
+
+            lines.Add(result);
+            GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReview - Execute Git Clone", success);
+        }
+
         public static void GitCommit()
         {
-            string result = ExecuteCommand.Execute("git add .");
-            GxConsoleHandler.GitConsoleWriter(result, "KBCodeReviewer - Execute Git add .");
+            string result;
+            bool success;
+            ExecuteCommand.Execute("git add .", out result, out success);
+            ArrayList lines = new ArrayList();
+            lines.Add(result);
+            GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReview - Execute Git add .", true);
             string gitcommit = "git commit -m " + '"' + "default message" + '"';
-            result = ExecuteCommand.Execute(gitcommit);
-            GxConsoleHandler.GitConsoleWriter(result, "KBCodeReviewer - Execute Git commit");
+            ExecuteCommand.Execute(gitcommit, out result, out success);
+            lines.Clear();
+            lines.Add(result);
+            GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReviewer - Execute Git commit", true);
         }
+
+        public static bool GitPull()
+        {
+            string result;
+            bool success;
+            ArrayList lines = new ArrayList();
+            ExecuteCommand.Execute("git pull", out result, out success);
+            lines.Add(result);
+            GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReviewer - Execute Git Pull", true);
+            return success;
+        }
+
+
+        public static bool GitStatus()
+        {
+            string result;
+            bool success;
+            ExecuteCommand.Execute("git status", out result, out success);
+            string aheadTxt = "ahead";
+            bool ahead = result.Contains(aheadTxt);
+            string pendingDiffs;
+            string formatedMsg = null;
+            char[] separator = new[] { '\n' };
+
+            ArrayList lines = new ArrayList();
+            if (ahead)
+            {
+                result = "Your branch is ahead of 'origin/master' by 1 commit. Please Push your changes before sending another diff \n";
+                lines.Add(result);   
+                pendingDiffs = GetPendingDiffs();     
+                List<string> LineList= pendingDiffs.Split(separator).ToList();
+                formatedMsg = "Diff Message: " + LineList[4].Trim() + '\n';
+                foreach (string msg in LineList)
+                {
+                    if (msg.Contains("Reviewers"))
+                    {
+                        formatedMsg += msg.Trim() + '\n';
+                    }
+                    if (msg.Contains("Differential Revision"))
+                    {
+                        formatedMsg += msg.Trim() + '\n';
+                    }
+                }                
+            }
+            lines.Add(formatedMsg);
+
+            GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReviewer - Execute Git status",!ahead);
+            return ahead;
+           
+        }
+
+        public static string GetPendingDiffs()
+        {
+
+            string result;
+            bool success;
+            ExecuteCommand.Execute("git log origin/master..HEAD", out result, out success);
+            return result;
+
+        }
+
 
         public static void ArcDiff()
         {
             ExecuteCommand.ExecuteArc("arc diff");
-            GxConsoleHandler.GitConsoleWriter("Executing Arc Diff", "KBCodeReviewer - Execute Arc diff");
+            ArrayList lines = new ArrayList();
+            lines.Add("Executing Arc Diff");
+            GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReview - Execute Arc diff",true);
         }
 
         public static void ArcLand()
         {
             ExecuteCommand.ExecuteArc("arc land");
-            GxConsoleHandler.GitConsoleWriter("Executing Arc Land", "KBCodeReviewer - Execute Arc land");
+            ArrayList lines = new ArrayList();
+            lines.Add("Executing Arc Land");
+            GxConsoleHandler.GitConsoleWriter(lines, "KBCodeReview - Execute Arc land",true);
         }
         //----------------------------------------------------------------------------------------------------------------
 
@@ -160,10 +284,8 @@ namespace GUG.Packages.KBCodeReview
             string parentPath = (obj.ParentKey != null) ? GetObjectFolderPath(obj.Parent, rootFolderPath) : rootFolderPath;
 
             string objectPath = parentPath;
-            ////EVO3:
-            // if (obj is Folder || obj is Module)
-            if (obj is Folder)
-                objectPath = Path.Combine(parentPath, obj.Name);
+            //Evo3            if (obj is Folder || obj is Module)
+            objectPath = Path.Combine(parentPath, obj.Name);
 
             return objectPath;
         }
@@ -211,7 +333,7 @@ namespace GUG.Packages.KBCodeReview
 
             ListProperties(obj, file);
             ListCategories(obj, file);
-            ListNavigation(obj, file);
+            //ListNavigation(obj, file);
         }
 
         private static void PrintHeaderLine(string Title, StreamWriter file)
@@ -343,25 +465,86 @@ namespace GUG.Packages.KBCodeReview
             }
         }
 
+
         private static void ListProperties(KBObject obj, StreamWriter file)
         {
             PrintSectionHeader("PROPERTIES", file);
+            //foreach (Property prop in obj.Properties)
+            //{
+            //if (!prop.IsDefault)
+            //{
+            //    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+            //}
+            //else
+            //{
+            //if ((prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
+            //{
+            //    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+            //}
+            //}
+            //}
+
             foreach (Property prop in obj.Properties)
             {
-                //EVO3:
-                //if (!prop.IsDefault)
-                //{
-                //    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
-                //}
-                //else
-                //{
-                    if ((prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
+                if (prop.Value != null)
+                {
+                    if ((prop.Name == "Name") || (prop.Name == "Description") || (prop.Name == "IsDefault") ||
+                        (prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
                     {
+
                         file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
                     }
-               // }
+                }
             }
+
+
         }
+
+
+        //        private static void ListProperties(KBObject obj, StreamWriter file)
+        //        {
+        //            PrintSectionHeader("PROPERTIES", file);
+        //            //foreach (Property prop in obj.Properties)
+        //            //{
+        //            //if (!prop.IsDefault)
+        //            //{
+        //            //    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+        //            //}
+        //            //else
+        //            //{
+        //            //if ((prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
+        //            //{
+        //            //    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+        //            //}
+        //            //}
+        //            //}
+
+        //            foreach (Property prop in obj.Properties)
+        //            {
+        //<<<<<<< HEAD
+        //                //EVO3:
+        //                //if (!prop.IsDefault)
+        //                //{
+        //                //    file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+        //                //}
+        //                //else
+        //                //{
+        //                    if ((prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
+        //=======
+        //                if (prop.Value != null)
+        //                {
+        //                    if ((prop.Name == "Name") || (prop.Name == "Description") || (prop.Name == "IsDefault") ||
+        //                        (prop.Name == "CommitOnExit") || (prop.Name == "TRNCMT") || (prop.Name == "GenerateObject"))
+        //>>>>>>> origin/Navigation
+        //                    {
+
+        //                        file.WriteLine(prop.Name + " -> " + prop.Value.ToString());
+        //                    }
+        //               // }
+        //            }
+
+
+        //        }
 
         private static void ListVariables(KBObject obj, StreamWriter file)
         {
@@ -493,7 +676,7 @@ namespace GUG.Packages.KBCodeReview
             return buffer.ToString();
         }
 
-        private static void ListStructure(SDTLevel level, int tabs, StreamWriter file)
+        private static void ListStructure(SDTLevel level, int tabs, System.IO.StreamWriter file)
         {
             WriteTabs(tabs, file);
             file.Write(level.Name);
@@ -507,14 +690,15 @@ namespace GUG.Packages.KBCodeReview
                 ListStructure(childLevel, tabs + 1, file);
         }
 
-        private static void ListItem(SDTItem item, int tabs, StreamWriter file)
+
+        private static void ListItem(SDTItem item, int tabs, System.IO.StreamWriter file)
         {
             WriteTabs(tabs, file);
             string dataType = item.Type.ToString().Substring(0, 1) + "(" + item.Length.ToString() + (item.Decimals > 0 ? "." + item.Decimals.ToString() : "") + ")" + (item.Signed ? "-" : "");
             file.WriteLine("{0}, {1}, {2} {3}", item.Name, dataType, item.Description, (item.IsCollection ? ", collection " + item.CollectionItemName : ""));
         }
 
-        private static void WriteTabs(int tabs, StreamWriter file)
+        private static void WriteTabs(int tabs, System.IO.StreamWriter file)
         {
             while (tabs-- > 0)
                 file.Write('\t');
@@ -525,15 +709,21 @@ namespace GUG.Packages.KBCodeReview
             Process.Start(GetKBCodeReviewDirectory());
         }
 
-        public static string GetKBCodeReviewDirectory()
+        public static string GetSpcDirectory(IKBService kbserv)
         {
-            return GetKBCodeReviewDirectory(UIServices.KB);
+            GxModel gxModel = kbserv.CurrentKB.DesignModel.Environment.TargetModel.GetAs<GxModel>();
+            return kbserv.CurrentKB.Location + string.Format(@"\GXSPC{0:D3}\", gxModel.Model.Id);
         }
+
+		public static string GetKBCodeReviewDirectory()
+		{
+			return GetKBCodeReviewDirectory(UIServices.KB);
+		}
 
         public static string GetKBCodeReviewDirectory(IKBService kbserv)
         {
-            string dir = Path.Combine(Functions.SpcDirectory(kbserv), "KBCodeReview");
-            if (!Directory.Exists(dir))
+            string dir = Path.Combine(GetSpcDirectory(kbserv), "KBCodeReview");
+			if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
             return dir;
